@@ -10,7 +10,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { View, Text, StyleSheet  } from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
 import * as firebase from 'firebase'
-import FeedScreen from './main/SwipeableImage'
+import FeedScreen from './main/Feed'
 import ChatScreen from './main/Chat'
 import ProfileScreen from './main/Profile'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -71,7 +71,7 @@ export class Main extends Component {
                         listeners={({ navigation }) => ({
                             tabPress: event => {
                                 event.preventDefault();
-                                console.log(firebase.auth().currentUser.uid)
+                                //console.log(firebase.auth().currentUser.uid)
                                 navigation.navigate("Profile", { uid: firebase.auth().currentUser.uid })
                             }
                         })}

@@ -45,8 +45,8 @@ function Profile(props) {
      
         <View style={styles.container}>
             <View style={styles.containerInfo}>
-                <Text>{props.currentUser.name}</Text>
-                <Text>{props.currentUser.email}</Text>
+                <Text>Nom : {props.currentUser.name}</Text>
+                <Text>Mail : {props.currentUser.email}</Text>
                 <Button
                         title="Logout"
                         onPress={() => onLogout()}

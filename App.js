@@ -48,10 +48,7 @@ const Stack = createStackNavigator();
 
 export default function App() 
 {
-  const [users, setUsers] = useState([])
-  const [currentIndex, setCurrentIndex] = useState(0) 
-  
-  const swipesRef = useRef(null)
+ 
 
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -62,61 +59,7 @@ export default function App()
     loaded: false,
   }*/
 
-  async function fetchUsers() 
-  {
-    try
-    {
-      const {data} = await axios.get('https://randomuser.me/api/?gender=female&results=50')
-      setUsers(data.results)
-    }
-    catch (error)
-    {
-      //Show button to try again if the API fail
-      Alert.alert('Error getting users', '', [{text: 'Retry', onPress: () => fetchUsers()}])
-    }
-  }
 
-  useEffect(() =>
-  {
-    fetchUsers()
-  }, [])
-
-  function  handleLike()
-  {
-    nextUser()
-  }
-
-  function  handlePass()
-  {
-    nextUser()
-  }
-
-  function nextUser()
-  {
-    const nextIndex = users.length - 2 === currentIndex ? 0 : currentIndex + 1
-    setCurrentIndex(nextIndex)
-  }
-
-  function previousUser()
-  {
-    const newIndex = currentIndex === 0 ? 0 : currentIndex - 1
-    setCurrentIndex(newIndex)
-  }
-
-  function handleUndoPress()
-  {
-    previousUser()
-  }
-  
-  function handleLikePress()
-  {
-    swipesRef.current.openLeft()
-  }
-
-  function handlePassPress()
-  {
-    swipesRef.current.openRight()
-  }
 
   /*
   firebase.auth().onAuthStateChanged((user) => {
@@ -158,7 +101,7 @@ export default function App()
   if (!user) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Landing">
+        <Stack.Navigator initialRouteName="Landing" screenOptions={{headerShown: false}}>
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -202,24 +145,3 @@ export default function App()
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: Constants.statusBarHeight
-  },
-  swipes: {
-    flex: 1,
-    padding: 10,
-    paddingTop: 8,
-    shadowColor: '#000',
-    shadowOffset:
-    {
-        width: 0,
-        height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-})

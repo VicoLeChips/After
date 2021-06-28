@@ -3,6 +3,14 @@ import { View, Image, StyleSheet, Text } from 'react-native'
 import {FontAwesome, FontAwesome5} from '@expo/vector-icons'
 
 export default function SwipeableImage({user, willLike, willPass}) {
+    if (user == undefined)
+    {
+        return (
+        <View>
+        <Text>No profile found</Text>
+        </View>
+        )
+    }
     return (
         <View>
             <Image source={{uri: user.picture.large}} style={styles.photo}/>
