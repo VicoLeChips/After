@@ -49,10 +49,10 @@ export class Main extends Component {
                 <Tab.Navigator initialRouteName="Feed"
                     tabBarOptions={{
                         showLabel: false,
-                        style: { backgroundColor: 'orange' },
+                        style: { backgroundColor: 'white' },
                         showIcon: true,
                         shifting: true,
-                        activeTintColor: 'red',
+                        activeTintColor: '#fb5b5a',
                         inactiveTintColor: 'grey',
                         activeColor: 'white'
                     }}>
