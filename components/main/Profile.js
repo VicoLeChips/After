@@ -1,66 +1,36 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, Image, FlatList, Button, ScrollView, ImageBackground, TouchableOpacity, Dimensions  } from 'react-native'
+import { RefreshControl, StyleSheet, View, Text, Image, FlatList, Button, ScrollView, ImageBackground, TouchableOpacity, Dimensions  } from 'react-native'
 import {Ionicons, Entypo, FontAwesome5  } from '@expo/vector-icons'
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native' // <-- import useNavigation hook
+import { fetchUser, fetchUserProfilePictures } from '../../redux/actions/index'
 
 import firebase from 'firebase'
 require('firebase/firestore')
 import { connect } from 'react-redux'
+import Main from '../Main';
 
 function Profile(props) {
-    /*const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const { currentUser, posts } = props;
-
-        if (props.route.params.uid === firebase.auth().currentUser.uid) {
-            setUser(currentUser)
-            setUserPosts(posts)
-        }
-        else {
-            firebase.firestore()
-                .collection("users")
-                .doc(props.route.params.uid)
-                .get()
-                .then((snapshot) => {
-                    if (snapshot.exists) {
-                        setUser(snapshot.data());
-                    }
-                    else {
-                        console.log('does not exist')
-                    }
-                })
-        }
-
-    }, [props.route.params.uid])
-
-*/
+    
+  
     const onLogout = () => {
         firebase.auth().signOut();
     }
-    /*console.log("/////////////////////////")
-    console.log(props.currentUser.name)*/
-   /* if (user === null) {
-        return <View />
-    }*/
-    /*
-    return(
-        <View style={styles.container}>
-            <View style={styles.containerInfo}>
-            <Text>Nom : {props.currentUser.name}</Text>
-            <Text>Mail : {props.currentUser.email}</Text>
-            <Text>Age : {props.currentUser.age}</Text>
-            <Text>Location : {props.currentUser.location}</Text>
 
-            <Button
-                        title="Logout"
-                        onPress={() => onLogout()}
-                    />
-                                </View>
-        </View>
-    )*/
-    const _menu = null;
-
+    const navigation = useNavigation() // <-- add this line
+   
+  
+      /*
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            
+        
+            console.log("Refreshing")
+        });
+        return unsubscribe;
+      }, [navigation]);
+*/
     return (
 
         //Grey Background
@@ -72,7 +42,10 @@ function Profile(props) {
             <ScrollView style={styles.containerProfile}>
 
                 {/* User's picture */}
-                <ImageBackground source={require("../../assets/man.jpg")} style={styles.photo}>
+                <ImageBackground  
+                key={(new Date()).getTime()} 
+                source={{uri: props.currentUser.picture, cache: 'reload'}}
+                style={styles.photo}>
 
                     {/* Three dotted line (top right for more option) */}
                     <View style={styles.top}>
@@ -117,15 +90,23 @@ function Profile(props) {
                         <Text style={styles.infoContent}>{props.currentUser.hashtag}</Text>
                     </View>
                 </View>
-
+                <Button
+                    title="Add"
+                    onPress={() =>  navigation.navigate("Add")}
+                />
                 <Button
                     title="Logout"
                     onPress={() => onLogout()}
+                />
+                <Button
+                    title="Refresh [NOT WORKING]"
+                    onPress={() => refreshPage()}
                 />
             </ScrollView>
         </ImageBackground>
     )
 }
+
 
 
 const styles = StyleSheet.create({
@@ -212,7 +193,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (store) => ({
-    currentUser: store.userState.currentUser
+    currentUser: store.userState.currentUser,
+    profilePictures: store.userState.profilePictures,
 })
 
 

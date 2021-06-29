@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchUser } from '../redux/actions/index'
+import { fetchUser, fetchUserProfilePictures } from '../redux/actions/index'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { View, Text, StyleSheet  } from 'react-native'
@@ -22,6 +22,7 @@ const Tab = createMaterialTopTabNavigator();
 export class Main extends Component {
     componentDidMount() {
         this.props.fetchUser();
+        this.props.fetchUserProfilePictures();
     }
     
     render() {
@@ -91,6 +92,6 @@ export class Main extends Component {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
-const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser}, dispatch);
+const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, fetchUserProfilePictures}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchProps)(Main);

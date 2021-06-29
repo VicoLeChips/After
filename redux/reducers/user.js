@@ -1,7 +1,8 @@
-import { USER_STATE_CHANGE } from "../constants"
+import { USER_STATE_CHANGE, USER_PROFILE_PICTURES_STATE_CHANGE } from "../constants"
 
 const initialState = {
     currentUser: null,
+    profilePictures: []
 }
 
 export const user = (state = initialState, action) => {
@@ -10,6 +11,11 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
                 currentUser: action.currentUser
+            }
+        case USER_PROFILE_PICTURES_STATE_CHANGE:
+            return {
+                ...state,
+                profilePictures: action.profilePictures
             }
         default:
             return state;

@@ -25,6 +25,9 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from './components/Main'
+import SaveScreen from './components/main/Save'
+import AddScreen from './components/main/Add'
+
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
@@ -136,6 +139,8 @@ export default function App()
         <NavigationContainer >
           <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown: false}}>
             <Stack.Screen name="Main" component={MainScreen} />
+            <Stack.Screen name="Add" component={AddScreen} />
+            <Stack.Screen name="Save" component={SaveScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
