@@ -9,7 +9,6 @@ import { fetchUser, fetchUserProfilePictures } from '../../redux/actions/index'
 import firebase from 'firebase'
 require('firebase/firestore')
 import { connect } from 'react-redux'
-import Main from '../Main';
 
 function Profile(props) {
     
